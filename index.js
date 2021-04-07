@@ -9,7 +9,7 @@ require('dotenv').config()
 
 
 const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://EmaJohanUser:J9kXL2qbkEus8Ny@cluster0.77ufn.mongodb.net/EmaJohanDataBase?retryWrites=true&w=majority";
+const uri =`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}.77ufn.mongodb.net/EmaJohanDataBase?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(err => {
   const productcollection = client.db("EmaJohanDataBase").collection("Products");
