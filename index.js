@@ -19,16 +19,18 @@ client.connect(err => {
   const productcollection = client.db("EmaJohanDataBase").collection("Products");
   const Ordercollection=client.db("EmaJohanDataBase").collection("Orders");
   // perform actions on the collection object
+
+  //Add product in database
     app.post('/addProduct',(req,res)=>{
         const Products=req.body;
         productcollection.insertOne(Products)
         .then(result=>{
-           res.send(result.insertedCount);
+           res.send(result.insertedCount>0);
         })
     })
     //All products Get
     app.get('/products',(req,res)=>{
-        productcollection.find({})
+        productcollection.find({name:{$regex:req.query.name}})
         .toArray((err,document)=>{
             res.send(document)
         })
@@ -54,7 +56,7 @@ client.connect(err => {
       const Products=req.body;
       Ordercollection.insertOne(Products)
       .then(result=>{
-         res.send(result);
+         res.send(result.insertedCount>0);
       })
   })
   console.log('Database Connected');
@@ -63,7 +65,7 @@ client.connect(err => {
 
 
 app.get('/', (req, res) => {
-  res.send('Hello Ema-Johan!')
+  res.send('Hello Tech John!')
 })
 
 
